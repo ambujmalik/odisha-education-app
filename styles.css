@@ -1,0 +1,1024 @@
+/* =====================================================
+   🏛️ Odisha Education Portal - Advanced UI/UX System
+   ===================================================== */
+:root {
+    /* Odisha Cultural Colors */
+    --jagannath-blue: #1E3A8A;
+    --konark-gold: #DAA520;
+    --temple-orange: #FF6B35;
+    --lotus-pink: #F8BBD9;
+    --sea-blue: #006994;
+    --forest-green: #2F5233;
+    
+    /* UI Colors */
+    --white: #ffffff;
+    --light-blue: #f0f9ff;
+    --light-gray: #f8fafc;
+    --medium-gray: #e2e8f0;
+    --dark-gray: #64748b;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    
+    /* Role-specific Colors */
+    --student-primary: #3b82f6;
+    --student-bg: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+    --parent-primary: #f59e0b;
+    --parent-bg: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    --teacher-primary: #10b981;
+    --teacher-bg: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    --headmaster-primary: #8b5cf6;
+    --headmaster-bg: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    --block-primary: #f97316;
+    --block-bg: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+    --district-primary: #dc2626;
+    --district-bg: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+    --division-primary: #7c3aed;
+    --division-bg: linear-gradient(135deg, #e9d5ff 0%, #ddd6fe 100%);
+    
+    /* Status Colors */
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --info: #3b82f6;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* Gradients */
+    --primary-gradient: linear-gradient(135deg, var(--jagannath-blue) 0%, var(--konark-gold) 100%);
+    --cultural-bg: linear-gradient(135deg, #fef3c7 0%, #ddd6fe 50%, #fecaca 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--light-gray);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--primary-gradient);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    color: white;
+    transition: opacity 0.5s ease;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.konark-wheel {
+    width: 80px;
+    height: 80px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid var(--konark-gold);
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+    margin-bottom: 2rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.cultural-text {
+    font-family: 'Noto Sans Oriya', sans-serif;
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-top: 0.5rem;
+}
+
+/* Page Layout */
+.page {
+    display: none;
+    min-height: 100vh;
+}
+
+.page.active {
+    display: block;
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Login Page */
+.login-page {
+    background: var(--cultural-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+}
+
+.login-container {
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-xl);
+    max-width: 1200px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: var(--primary-gradient);
+    border-radius: 16px;
+    color: white;
+}
+
+.login-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.login-header .subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+/* Credentials Section */
+.credentials-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--light-blue);
+    border-radius: 12px;
+    border: 2px solid var(--medium-gray);
+}
+
+.credentials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.cred-card {
+    background: var(--white);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--jagannath-blue);
+    box-shadow: var(--shadow-sm);
+}
+
+.cred-card h4 {
+    color: var(--jagannath-blue);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.cred-card p {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-secondary);
+}
+
+.cred-card strong {
+    color: var(--text-primary);
+}
+
+/* Role Selection */
+.role-selection {
+    margin-bottom: 2rem;
+}
+
+.role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.role-card {
+    background: var(--white);
+    border: 2px solid var(--medium-gray);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.role-card:hover {
+    border-color: var(--jagannath-blue);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.role-card.selected {
+    border-color: var(--jagannath-blue);
+    background: var(--light-blue);
+}
+
+.role-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.role-title {
+    font-weight: 600;
+    color: var(--jagannath-blue);
+    margin-bottom: 0.5rem;
+}
+
+.role-title-odia {
+    font-family: 'Noto Sans Oriya', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Login Form */
+.login-form {
+    display: none;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--medium-gray);
+}
+
+.login-form.show {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--medium-gray);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--jagannath-blue);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* Dashboard Layout - Role-specific styling */
+.dashboard-page {
+    min-height: 100vh;
+    background: var(--light-gray);
+}
+
+/* Dynamic role-based backgrounds */
+.dashboard-page.student { background: var(--student-bg); }
+.dashboard-page.parent { background: var(--parent-bg); }
+.dashboard-page.teacher { background: var(--teacher-bg); }
+.dashboard-page.headmaster { background: var(--headmaster-bg); }
+.dashboard-page.block_officer { background: var(--block-bg); }
+.dashboard-page.district_officer { background: var(--district-bg); }
+.dashboard-page.divisional_officer { background: var(--division-bg); }
+
+.dashboard-header {
+    background: var(--white);
+    padding: 1.5rem 2rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Role-specific header accents */
+.dashboard-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--jagannath-blue);
+}
+
+.dashboard-page.student .dashboard-header::before { background: var(--student-primary); }
+.dashboard-page.parent .dashboard-header::before { background: var(--parent-primary); }
+.dashboard-page.teacher .dashboard-header::before { background: var(--teacher-primary); }
+.dashboard-page.headmaster .dashboard-header::before { background: var(--headmaster-primary); }
+.dashboard-page.block_officer .dashboard-header::before { background: var(--block-primary); }
+.dashboard-page.district_officer .dashboard-header::before { background: var(--district-primary); }
+.dashboard-page.divisional_officer .dashboard-header::before { background: var(--division-primary); }
+
+.dashboard-logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--jagannath-blue);
+}
+
+/* Enhanced User Info Section */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+/* Role-specific avatar styling */
+.dashboard-page.student .user-avatar { background: linear-gradient(135deg, var(--student-primary), #60a5fa); }
+.dashboard-page.parent .user-avatar { background: linear-gradient(135deg, var(--parent-primary), #fbbf24); }
+.dashboard-page.teacher .user-avatar { background: linear-gradient(135deg, var(--teacher-primary), #34d399); }
+.dashboard-page.headmaster .user-avatar { background: linear-gradient(135deg, var(--headmaster-primary), #a78bfa); }
+.dashboard-page.block_officer .user-avatar { background: linear-gradient(135deg, var(--block-primary), #fb923c); }
+.dashboard-page.district_officer .user-avatar { background: linear-gradient(135deg, var(--district-primary), #f87171); }
+.dashboard-page.divisional_officer .user-avatar { background: linear-gradient(135deg, var(--division-primary), #8b5cf6); }
+
+.user-avatar::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 16px;
+    height: 16px;
+    background: var(--success);
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.user-details h3 {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.user-role {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.user-id {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-family: 'Courier New', monospace;
+    background: var(--light-gray);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.logout-btn {
+    background: var(--error);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+}
+
+/* Dashboard Content */
+.dashboard-content {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dashboard-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.dashboard-title h2 {
+    font-size: 2.5rem;
+    color: var(--jagannath-blue);
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-title .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.dashboard-title .odia-text {
+    font-family: 'Noto Sans Oriya', sans-serif;
+    color: var(--konark-gold);
+    font-weight: 600;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.dashboard-title .role-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    background: var(--jagannath-blue);
+}
+
+/* Role-specific title badges */
+.dashboard-page.student .role-badge { background: var(--student-primary); }
+.dashboard-page.parent .role-badge { background: var(--parent-primary); }
+.dashboard-page.teacher .role-badge { background: var(--teacher-primary); }
+.dashboard-page.headmaster .role-badge { background: var(--headmaster-primary); }
+.dashboard-page.block_officer .role-badge { background: var(--block-primary); }
+.dashboard-page.district_officer .role-badge { background: var(--district-primary); }
+.dashboard-page.divisional_officer .role-badge { background: var(--division-primary); }
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--jagannath-blue);
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Role-specific stat card borders */
+.dashboard-page.student .stat-card { border-left-color: var(--student-primary); }
+.dashboard-page.parent .stat-card { border-left-color: var(--parent-primary); }
+.dashboard-page.teacher .stat-card { border-left-color: var(--teacher-primary); }
+.dashboard-page.headmaster .stat-card { border-left-color: var(--headmaster-primary); }
+.dashboard-page.block_officer .stat-card { border-left-color: var(--block-primary); }
+.dashboard-page.district_officer .stat-card { border-left-color: var(--district-primary); }
+.dashboard-page.divisional_officer .stat-card { border-left-color: var(--division-primary); }
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, var(--konark-gold) 1px, transparent 1px);
+    background-size: 15px 15px;
+    opacity: 0.05;
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--jagannath-blue);
+}
+
+.stat-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--jagannath-blue);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stat-change {
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.stat-change.positive { background: #dcfce7; color: #166534; }
+.stat-change.negative { background: #fecaca; color: #dc2626; }
+.stat-change.neutral { background: var(--light-gray); color: var(--text-secondary); }
+
+/* Quick Actions */
+.quick-actions {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--jagannath-blue);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.action-btn {
+    background: var(--light-blue);
+    border: 2px solid var(--medium-gray);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+}
+
+.action-btn:hover::before {
+    left: 100%;
+}
+
+.action-btn:hover {
+    border-color: var(--jagannath-blue);
+    background: var(--jagannath-blue);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Role-specific action button hover colors */
+.dashboard-page.student .action-btn:hover { border-color: var(--student-primary); background: var(--student-primary); }
+.dashboard-page.parent .action-btn:hover { border-color: var(--parent-primary); background: var(--parent-primary); }
+.dashboard-page.teacher .action-btn:hover { border-color: var(--teacher-primary); background: var(--teacher-primary); }
+.dashboard-page.headmaster .action-btn:hover { border-color: var(--headmaster-primary); background: var(--headmaster-primary); }
+.dashboard-page.block_officer .action-btn:hover { border-color: var(--block-primary); background: var(--block-primary); }
+.dashboard-page.district_officer .action-btn:hover { border-color: var(--district-primary); background: var(--district-primary); }
+.dashboard-page.divisional_officer .action-btn:hover { border-color: var(--division-primary); background: var(--division-primary); }
+
+.action-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.action-text {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.action-text-odia {
+    font-family: 'Noto Sans Oriya', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Services Section */
+.services-section {
+    margin-bottom: 3rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.service-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.service-header {
+    padding: 2rem 1.5rem 1rem;
+    background: linear-gradient(135deg, var(--light-blue), var(--white));
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    color: var(--jagannath-blue);
+    margin-bottom: 1rem;
+}
+
+.service-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.service-title-odia {
+    font-family: 'Noto Sans Oriya', sans-serif;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.service-body {
+    padding: 1.5rem;
+}
+
+.service-description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-xl);
+    max-width: 900px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal {
+    transform: scale(1);
+}
+
+.modal-header {
+    padding: 2rem;
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 16px 16px 0 0;
+    position: relative;
+}
+
+.modal-header h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: background 0.3s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+/* Enhanced Data Tables */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.data-table th,
+.data-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.data-table th {
+    background: var(--light-gray);
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-table tbody tr:hover {
+    background: var(--light-blue);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.pending { background: #fef3c7; color: #92400e; }
+.status-badge.submitted { background: #dbeafe; color: #1e40af; }
+.status-badge.completed { background: #dcfce7; color: #166534; }
+.status-badge.present { background: #dcfce7; color: #166534; }
+.status-badge.absent { background: #fecaca; color: #dc2626; }
+.status-badge.late { background: #fed7aa; color: #ea580c; }
+
+/* Enhanced Form Elements */
+.form-select {
+    padding: 0.6rem;
+    border: 2px solid var(--medium-gray);
+    border-radius: 6px;
+    background: white;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--jagannath-blue);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn-success {
+    background: var(--success);
+    color: white;
+}
+
+.btn-success:hover {
+    background: #16a34a;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.mb-2 { margin-bottom: 1rem; }
+.mt-2 { margin-top: 1rem; }
+.hidden { display: none; }
+
+/* Progress Bars */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--light-gray);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--success);
+    transition: width 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .login-header h1 {
+        font-size: 2rem;
+    }
+
+    .credentials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .role-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-header {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .user-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .dashboard-content {
+        padding: 1rem;
+    }
+
+    .dashboard-title h2 {
+        font-size: 2rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal {
+        width: 95%;
+        margin: 1rem;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+}
+
+/* Cultural Decorative Elements */
+.lotus-decoration::after {
+    content: '🪷';
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    font-size: 1.5rem;
+    opacity: 0.3;
+}
+
+/* Notification Badge */
+.notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--error);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
